@@ -10,7 +10,14 @@
     ],
     "author": "Oscar Busk <oscar.busk@gmail.com>",
     "license": "MIT",
-    "homepage": "",
+    "homepage": "https://github.com/oBusk/read-bigint/tree/master/packages/read-biguint-64-be#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/oBusk/read-bigint.git"
+    },
+    "bugs": {
+        "url": "https://github.com/oBusk/read-bigint/issues"
+    },
     "files": [
         "dist/",
         "dist.module/",
