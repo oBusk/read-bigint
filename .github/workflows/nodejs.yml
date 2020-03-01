@@ -15,14 +15,11 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v1
         env:
-          cache-name: cache-npm
           node-version: 13.x
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
       - run: npm ci
         env:
           CI: true
@@ -46,14 +43,11 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v1
         env:
-          cache-name: cache-npm
           node-version: ${{ matrix.node-version }}
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
       - run: npm ci
         env:
           CI: true
@@ -74,14 +68,11 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v1
         env:
-          cache-name: cache-npm
           node-version: 13.x
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
       - run: npm ci
         env:
           CI: true
