@@ -31,8 +31,8 @@
     "scripts": {
         "lint": "tslint \"src/**/*\" --project tsconfig.json",
         "build": "rimraf dist/ dist.module/ && tsc && tsc -P tsconfig.module.json",
-        "specs": "jest --coverage",
-        "test": "npm run build && npm run lint && npm run specs",
+        "test": "jest",
+        "test-coverage": "jest --coverage",
         "prepare": "npm run build"
     },
     "devDependencies": {

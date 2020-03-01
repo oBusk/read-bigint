@@ -6,10 +6,13 @@
     },
     "scripts": {
         "bootstrap": "lerna bootstrap",
-        "prettier": "prettier --write",
+        "prettier-write": "prettier --write",
         "build": "lerna run build",
-        "format": "npm run prettier -- \"**/*.{js,jsx,ts,tsx,json,md,yml,yaml}\" --ignore-path .gitignore",
+        "format": "npm run prettier-all-files -- --write",
+        "prettier-all-files": "prettier \"**/*.{js,jsx,ts,tsx,json,md,yml,yaml}\" --ignore-path .gitignore",
+        "lint": "npm run prettier-all-files -- --check && lerna run lint",
         "test": "lerna run test",
+        "test-coverage": "lerna run test-coverage",
         "prepare": "npm run bootstrap"
     },
     "husky": {
@@ -19,7 +22,7 @@
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx,json,md,yml,yaml}": [
-            "npm run prettier",
+            "npm run prettier-write",
             "git add"
         ]
     },
