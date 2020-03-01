@@ -37,7 +37,7 @@
         ]
     },
     "scripts": {
-        "bundlewatch": "node -e \"console.log(process.env)\" && bundlewatch",
+        "bundlewatch": "bundlewatch",
         "lint": "eslint **/*.{js,jsx,ts,tsx,json} --ignore-path ../../.gitignore",
         "prettier": "prettier **/*.{md,yml,yaml} --ignore-path ../../.gitignore --check",
         "build": "rimraf dist/ dist.module/ && tsc && tsc -P tsconfig.module.json",
