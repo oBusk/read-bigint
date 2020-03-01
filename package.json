@@ -1,7 +1,6 @@
 {
     "name": "root",
     "private": true,
-    "description": "👓💯 Package of Node Buffer methods readBigInt64BE, readBigInt64LE, readBigUInt64BE, and readBigUInt64LE",
     "volta": {
         "node": "13.9.0"
     },
