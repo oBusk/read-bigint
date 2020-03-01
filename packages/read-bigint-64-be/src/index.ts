@@ -27,7 +27,7 @@ export function readBigInt64BE(buffer: Buffer, offset = 0): bigint {
             errInvalidArgTypeMsg("buffer", "Buffer", typeof buffer)
         );
     }
-    if (typeof (offset as any) !== "number") {
+    if (typeof (offset as unknown) !== "number") {
         throw new Error(
             errInvalidArgTypeMsg("offset", "number", typeof offset)
         );

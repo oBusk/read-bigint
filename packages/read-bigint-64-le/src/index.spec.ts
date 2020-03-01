@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import readBigInt64LE from ".";
 
 const ZERO_64BIT_SIGNED_INTEGER = Object.freeze([
