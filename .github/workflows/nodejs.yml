@@ -101,10 +101,10 @@ jobs:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
           key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
-      - run: npm ci
+      # - run: npm ci
+      #   env:
+      #     CI: true
+      - run: node -e 'console.log(process.env)'
         env:
           CI: true
-      - run: node -e 'console.log(process.env)'
-        #env:
-        #CI: true
         #BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
