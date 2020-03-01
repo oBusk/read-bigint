@@ -28,7 +28,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: build-node-${{ matrix.node-version }}
-          path: .
+          path: "**/*"
 
   lint:
     runs-on: ubuntu-latest
