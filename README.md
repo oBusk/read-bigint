@@ -3,6 +3,7 @@
 [![Node.js CI](https://github.com/oBusk/read-bigint/workflows/Node.js%20CI/badge.svg)](https://github.com/oBusk/read-bigint/actions)
 [![codecov](https://codecov.io/gh/oBusk/read-bigint/branch/master/graph/badge.svg)](https://codecov.io/gh/oBusk/read-bigint)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=oBusk/read-bigint)](https://dependabot.com)
+[![Bundle Watched](https://img.shields.io/badge/bundle-watched-blue.svg)](https://bundlewatch.io)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 > 👓💯 Packages of Node Buffer methods readBigInt64BE, readBigInt64LE, readBigUInt64BE, and readBigUInt64LE
