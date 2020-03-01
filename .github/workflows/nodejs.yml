@@ -27,90 +27,16 @@ jobs:
           CI: true
       - uses: actions/upload-artifact@v1
         with:
-          name: read-bigint-dist-node-${{ matrix.node-version }}
-          path: packages/read-bigint/dist/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-bigint-dist-module-node-${{ matrix.node-version }}
-          path: packages/read-bigint/dist.module/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-node-${{ matrix.node-version }}
-          path: packages/read-bigint-64-be/dist/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-module-node-${{ matrix.node-version }}
-          path: packages/read-bigint-64-be/dist.module/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-node-${{ matrix.node-version }}
-          path: packages/read-bigint-64-le/dist/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-module-node-${{ matrix.node-version }}
-          path: packages/read-bigint-64-le/dist.module/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-node-${{ matrix.node-version }}
-          path: packages/read-biguint-64-be/dist/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-module-node-${{ matrix.node-version }}
-          path: packages/read-biguint-64-be/dist.module/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-node-${{ matrix.node-version }}
-          path: packages/read-biguint-64-le/dist/
-      - uses: actions/upload-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-module-node-${{ matrix.node-version }}
-          path: packages/read-biguint-64-le/dist.module/
+          name: build-node-${{ matrix.node-version }}
+          path: .
 
   lint:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-13.x-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-13.x-npm-cache-
-      - run: |
-          npm ci --ignore-scripts
-          npm run bootstrap -- --ignore-scripts
-        env:
-          CI: true
       - uses: actions/download-artifact@v1
         with:
-          name: read-bigint-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-module-node-13.x
+          name: build-node-13.x
       - run: npm run lint
         env:
           CI: true
@@ -120,47 +46,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-13.x-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-13.x-npm-cache-
-      - run: |
-          npm ci --ignore-scripts
-          npm run bootstrap -- --ignore-scripts
-        env:
-          CI: true
       - uses: actions/download-artifact@v1
         with:
-          name: read-bigint-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-module-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-node-13.x
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-module-node-13.x
+          name: build-node-13.x
       - run: npm run test-coverage
         env:
           CI: true
@@ -178,47 +66,9 @@ jobs:
         node-version: [10.x, 11.x, 12.x] # latest node is tested in test-with-codecov
 
     steps:
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-${{ matrix.node-version }}-npm-cache-
-      - run: |
-          npm ci --ignore-scripts
-          npm run bootstrap -- --ignore-scripts
-        env:
-          CI: true
       - uses: actions/download-artifact@v1
         with:
-          name: read-bigint-dist-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-dist-module-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-be-dist-module-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-bigint-64-le-dist-module-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-be-dist-module-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-node-${{ matrix.node-version }}
-      - uses: actions/download-artifact@v1
-        with:
-          name: read-biguint-64-le-dist-module-node-${{ matrix.node-version }}
+          name: build-node-${{ matrix.node-version }}
       - run: npm ci
         env:
           CI: true
