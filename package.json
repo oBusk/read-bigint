@@ -6,11 +6,10 @@
     },
     "scripts": {
         "bootstrap": "lerna bootstrap",
-        "prettier-write": "prettier --write",
         "build": "lerna run build",
-        "format": "npm run prettier-all-files -- --write",
-        "prettier-all-files": "prettier \"**/*.{js,jsx,ts,tsx,json,md,yml,yaml}\" --ignore-path .gitignore",
-        "lint": "npm run prettier-all-files -- --check && lerna run lint",
+        "prettier-all-files": "prettier **/*.{js,jsx,ts,tsx,json,md,yml,yaml} !packages/** --ignore-path .gitignore --check",
+        "lint": "npm run prettier-all-files && lerna run prettier && lerna run lint",
+        "lint-fix": "npm run prettier-all-files -- --write && lerna run prettier -- -- --write && lerna run lint -- -- --fix",
         "test": "lerna run test",
         "test-coverage": "lerna run test-coverage",
         "prepare": "npm run bootstrap"
@@ -21,17 +20,25 @@
         }
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx,json,md,yml,yaml}": [
-            "npm run prettier-write",
+        "*.{js,jsx,ts,tsx,json}": [
+            "eslint --fix",
+            "git add"
+        ],
+        "*.{md,yml,yaml}": [
+            "prettier --write",
             "git add"
         ]
     },
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.21.0",
+        "@typescript-eslint/parser": "^2.21.0",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.10.0",
+        "eslint-plugin-prettier": "^3.1.2",
         "husky": "^4.2.3",
         "lerna": "^3.20.2",
         "lint-staged": "^10.0.8",
         "prettier": "^1.19.1",
-        "tslint": "^6.0.0",
-        "tslint-config-prettier": "^1.18.0"
+        "typescript": "^3.8.3"
     }
 }
