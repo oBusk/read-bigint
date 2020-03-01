@@ -1,0 +1,33 @@
+{
+    "name": "root",
+    "private": true,
+    "description": "👓💯 Package of Node Buffer methods readBigInt64BE, readBigInt64LE, readBigUInt64BE, and readBigUInt64LE",
+    "volta": {
+        "node": "13.9.0"
+    },
+    "scripts": {
+        "bootstrap": "lerna bootstrap",
+        "prettier": "prettier --write",
+        "build": "lerna run build",
+        "format": "npm run prettier -- \"{./,packages/**/}*.{js,jsx,ts,tsx,json,md,yml,yaml}\" --ignore-path .gitignore",
+        "test": "lerna run test",
+        "prepare": "npm run bootstrap"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx,json,md,yml,yaml}": [
+            "npm run prettier",
+            "git add"
+        ]
+    },
+    "devDependencies": {
+        "husky": "^4.2.3",
+        "lerna": "^3.20.2",
+        "lint-staged": "^10.0.8",
+        "prettier": "^1.19.1"
+    }
+}
