@@ -15,3 +15,7 @@ import { readBigUInt64Be } from "read-biguint-64-be";
 
 // TODO: DEMONSTRATE API
 ```
+
+## License
+
+MIT

@@ -15,3 +15,7 @@ import { readBigInt64Le } from "read-bigint-64-le";
 
 // TODO: DEMONSTRATE API
 ```
+
+## License
+
+MIT

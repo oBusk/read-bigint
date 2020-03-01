@@ -15,3 +15,7 @@ import * as ReadBigInt from "read-bigint";
 
 // TODO: DEMONSTRATE API
 ```
+
+## License
+
+MIT
