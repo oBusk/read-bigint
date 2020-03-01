@@ -47,7 +47,7 @@ readBigInt64LE(buffer);
 readBigUInt64BE(buffer);
 ```
 
-#### [`readBigUInt64lE`](https://github.com/oBusk/read-bigint/tree/master/packages/read-biguint-64-le)
+#### [`readBigUInt64LE`](https://github.com/oBusk/read-bigint/tree/master/packages/read-biguint-64-le)
 
 > 👓💯 Read Unsigned Little-Endian BigInt from Buffer
 
