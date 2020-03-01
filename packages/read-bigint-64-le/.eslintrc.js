@@ -3,8 +3,5 @@ module.exports = {
         es6: true
     },
     parser: "@typescript-eslint/parser",
-    extends: [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
-    ]
+    extends: ["../../.eslintrc.js"]
 };
