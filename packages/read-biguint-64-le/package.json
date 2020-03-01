@@ -1,6 +1,6 @@
 {
     "name": "read-biguint-64-le",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "description": "👓💯 Read Unsigned Little-Endian BigInt from Buffer",
     "keywords": [
         "bigint",

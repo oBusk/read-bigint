@@ -1,6 +1,6 @@
 {
     "name": "read-bigint",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "description": "👓💯 Read Unsigned/Signed Big/Little-Endian BigInt from Buffer",
     "keywords": [
         "bigint",
@@ -38,10 +38,10 @@
         "prepare": "npm run build"
     },
     "dependencies": {
-        "read-bigint-64-be": "^0.0.1",
-        "read-bigint-64-le": "^0.0.1",
-        "read-biguint-64-be": "^0.0.1",
-        "read-biguint-64-le": "^0.0.1"
+        "read-bigint-64-be": "^0.0.0",
+        "read-bigint-64-le": "^0.0.0",
+        "read-biguint-64-be": "^0.0.0",
+        "read-biguint-64-le": "^0.0.0"
     },
     "devDependencies": {
         "@types/jest": "^25.1.3",
