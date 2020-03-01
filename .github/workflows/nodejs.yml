@@ -104,7 +104,7 @@ jobs:
       - run: npm ci
         env:
           CI: true
-      - run: node -e 'console.log(process.env)'
-        #env:
-        #CI: true
-        #BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+      - run: npm run bundlewatch
+        env:
+          CI: true
+          BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
