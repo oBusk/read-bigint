@@ -1,6 +1,6 @@
 # Read Big Int
 
-> 👓💯 Package of Node Buffer methods readBigInt64BE, readBigInt64LE, readBigUInt64BE, and readBigUInt64LE
+> 👓💯 Packages of Node Buffer methods readBigInt64BE, readBigInt64LE, readBigUInt64BE, and readBigUInt64LE
 
 ## Install
 
@@ -14,7 +14,7 @@ npm install read-bigint
 import * as readBigInt from "read-bigint";
 ```
 
-The purpose of these libraries is to be able to read native BigInt from native Buffer.
+The purpose of these packages is to be able to read native BigInt from native Buffer.
 This is mostly useful when targeting Node 10 (LTS Dubnium) or Node 11, which supports BigInt, but does not have
 native methods for reading BigInt from Buffer. On any later version of Node, you should use the
 [native Buffer methods](https://nodejs.org/docs/latest-v13.x/api/buffer.html#buffer_buf_readbigint64be_offset)
