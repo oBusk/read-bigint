@@ -1,3 +1,4 @@
 {
-    "extends": ["tslint-config-standard", "tslint-config-prettier"]
+    "$schema": "http://json.schemastore.org/tslint",
+    "extends": ["../../tslint.json"]
 }
