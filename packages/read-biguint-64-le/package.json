@@ -6,7 +6,8 @@
         "bigint",
         "buffer",
         "read",
-        "signed"
+        "signed",
+        "unsigned"
     ],
     "author": "Oscar Busk <oscar.busk@gmail.com>",
     "license": "MIT",

@@ -6,6 +6,7 @@
         "bigint",
         "buffer",
         "read",
+        "readbigint",
         "signed"
     ],
     "author": "Oscar Busk <oscar.busk@gmail.com>",
