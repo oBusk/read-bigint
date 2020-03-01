@@ -83,3 +83,28 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  bundlesize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 13x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 13.x
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          node-version: 13.x
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
+      - run: npm ci
+        env:
+          CI: true
+      - run: npm run bundlewatch
+        env:
+          CI: true
+          BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}

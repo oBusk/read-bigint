@@ -12,7 +12,8 @@
         "lint-fix": "npm run prettier-all-files -- --write && lerna run prettier -- -- --write && lerna run lint -- -- --fix",
         "test": "lerna run test",
         "test-coverage": "lerna run test-coverage",
-        "prepare": "npm run bootstrap"
+        "prepare": "npm run bootstrap",
+        "bundlewatch": "lerna run bundlewatch"
     },
     "husky": {
         "hooks": {
