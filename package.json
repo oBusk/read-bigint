@@ -50,7 +50,6 @@
         "postlint-fix": "npm run prettier-fix",
         "test": "jest",
         "test-coverage": "jest --coverage",
-        "prepare": "npm run build",
         "bundlewatch": "bundlewatch"
     },
     "devDependencies": {

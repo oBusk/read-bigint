@@ -53,6 +53,9 @@ jobs:
       - run: npm ci
         env:
           CI: true
+      - run: npm run build
+        env:
+          CI: true
       - run: npm test
         env:
           CI: true
@@ -77,6 +80,9 @@ jobs:
           key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
       - run: npm ci
+        env:
+          CI: true
+      - run: npm run build
         env:
           CI: true
       - run: npm run test-coverage
@@ -106,6 +112,9 @@ jobs:
           key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
       - run: npm ci
+        env:
+          CI: true
+      - run: npm run build
         env:
           CI: true
       - run: npm run bundlewatch
