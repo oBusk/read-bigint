@@ -20,6 +20,9 @@
     "bugs": {
         "url": "https://github.com/oBusk/read-bigint/issues"
     },
+    "engines": {
+        "node": "~10.16.2 || ^10.19.0 || ^12.16.0 || >=13.9.0"
+    },
     "volta": {
         "node": "13.9.0"
     },
