@@ -26,11 +26,7 @@
     "volta": {
         "node": "13.9.0"
     },
-    "files": [
-        "dist/",
-        "dist.module/",
-        "!**/*.spec.*"
-    ],
+    "type": "commonjs",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "module": "dist.module/index.js",
