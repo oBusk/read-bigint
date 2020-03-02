@@ -3,6 +3,8 @@
         "target": "es2018",
         "module": "commonjs",
         "lib": ["es2018"],
+        "outDir": "dist",
+        "rootDir": "src",
         "sourceMap": true,
         "declaration": true,
         "strict": true,
@@ -14,5 +16,6 @@
         "esModuleInterop": true,
         "inlineSources": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "include": ["src/**/*"]
 }
