@@ -1,24 +1,4 @@
-function errInvalidArgTypeMsg(
-    name: string,
-    expected: string,
-    actual: string
-): string {
-    return `The "${name}" argument must be of type ${expected}. Recieved type ${actual}`;
-}
-
-function errOutOfRangeMsg(expected: string, received: string | number): string {
-    return `The value of "offset" is out of range. It must be ${expected}. Received ${received}`;
-}
-
-function boundsErrorMsg(value: number, length: number): string {
-    if (Math.floor(value) !== value) {
-        return errOutOfRangeMsg("an integer", value);
-    }
-
-    if (length < 0) return "Attempt to access memory outside buffer bounds";
-
-    return errOutOfRangeMsg(`>= 0 and <=${length}`, value);
-}
+import { boundsErrorMsg, errInvalidArgTypeMsg } from "./error-messages";
 
 // https://github.com/nodejs/node/blob/v13.9.0/lib/internal/buffer.js#L123-L139
 export function readBigInt64LE(buffer: Buffer, offset = 0): bigint {
