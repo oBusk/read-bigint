@@ -35,16 +35,8 @@
     "bundlewatch": {
         "files": [
             {
-                "path": "dist?(.module)/index.js",
-                "maxSize": "0.25kB"
-            },
-            {
-                "path": "dist?(.module)/common.js",
+                "path": "dist?(.module)/!(*.spec).js",
                 "maxSize": "0.6kB"
-            },
-            {
-                "path": "dist?(.module)/read-!(*.spec).js",
-                "maxSize": "0.5kB"
             }
         ]
     },
