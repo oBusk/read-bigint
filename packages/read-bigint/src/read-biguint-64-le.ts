@@ -20,8 +20,8 @@ function boundsErrorMsg(value: number, length: number): string {
     return errOutOfRangeMsg(`>= 0 and <=${length}`, value);
 }
 
-// https://github.com/nodejs/node/blob/v13.9.0/lib/internal/buffer.js#L141-L157
-export function readBigInt64BE(buffer: Buffer, offset = 0): bigint {
+// https://github.com/nodejs/node/blob/v13.9.0/lib/internal/buffer.js#L83-L101
+export function readBigUInt64LE(buffer: Buffer, offset = 0): bigint {
     if (!Buffer.isBuffer(buffer)) {
         throw new Error(
             errInvalidArgTypeMsg("buffer", "Buffer", typeof buffer)
@@ -38,20 +38,17 @@ export function readBigInt64BE(buffer: Buffer, offset = 0): bigint {
         throw new Error(boundsErrorMsg(offset, buffer.length - 8));
     }
 
-    const val =
-        (first << 24) + // Overflow
-        buffer[++offset] * 2 ** 16 +
+    const lo =
+        first +
         buffer[++offset] * 2 ** 8 +
-        buffer[++offset];
-    return (
-        (BigInt(val) << BigInt(32)) +
-        BigInt(
-            buffer[++offset] * 2 ** 24 +
-                buffer[++offset] * 2 ** 16 +
-                buffer[++offset] * 2 ** 8 +
-                last
-        )
-    );
-}
+        buffer[++offset] * 2 ** 16 +
+        buffer[++offset] * 2 ** 24;
 
-export default readBigInt64BE;
+    const hi =
+        buffer[++offset] +
+        buffer[++offset] * 2 ** 8 +
+        buffer[++offset] * 2 ** 16 +
+        last * 2 ** 24;
+
+    return BigInt(lo) + (BigInt(hi) << BigInt(32));
+}
