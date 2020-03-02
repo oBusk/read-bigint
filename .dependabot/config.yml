@@ -6,6 +6,10 @@ update_configs:
     commit_message:
       prefix: "chore"
       include_scope: true
+    ignored_updates:
+      - match:
+          dependency_name: "@types/node"
+          version_requirement: ">=10.17"
     automerged_updates:
       - match:
           update_type: "semver:patch"
