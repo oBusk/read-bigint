@@ -16,14 +16,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
+      - name: Get cache dir, Node Version and NPM Version
+        id: node-config
+        run: |
+          echo "::set-output name=nodev::$(node -v)"
+          echo "::set-output name=npmv::$(npm -v)"
+          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache npm cache
         uses: actions/cache@v1
-        env:
-          node-version: 13.x
         with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
+          path: ${{ steps.node-config.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+            ${{ runner.os }}-
       - name: Install
         run: npm ci
       - name: Check Linting
@@ -46,14 +53,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Get cache dir, Node Version and NPM Version
+        id: node-config
+        run: |
+          echo "::set-output name=nodev::$(node -v)"
+          echo "::set-output name=npmv::$(npm -v)"
+          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache npm cache
         uses: actions/cache@v1
-        env:
-          node-version: ${{ matrix.node-version }}
         with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
+          path: ${{ steps.node-config.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+            ${{ runner.os }}-
       - name: Install
         run: npm ci
       - name: Run Tests
@@ -71,14 +85,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
+      - name: Get cache dir, Node Version and NPM Version
+        id: node-config
+        run: |
+          echo "::set-output name=nodev::$(node -v)"
+          echo "::set-output name=npmv::$(npm -v)"
+          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache npm cache
         uses: actions/cache@v1
-        env:
-          node-version: 13.x
         with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
+          path: ${{ steps.node-config.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+            ${{ runner.os }}-
       - name: Install
         run: npm ci
       - name: Run Tests
@@ -88,7 +109,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-  build:
+  build-with-bundlewatch:
     name: build (13x) [With bundlewatch]
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -101,14 +122,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
+      - name: Get cache dir, Node Version and NPM Version
+        id: node-config
+        run: |
+          echo "::set-output name=nodev::$(node -v)"
+          echo "::set-output name=npmv::$(npm -v)"
+          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache npm cache
         uses: actions/cache@v1
-        env:
-          node-version: 13.x
         with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
+          path: ${{ steps.node-config.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+            ${{ runner.os }}-
       - name: Install
         run: npm ci
       - name: Build
