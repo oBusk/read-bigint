@@ -8,7 +8,8 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Use Node.js 13x
         uses: actions/setup-node@v1
         with:
@@ -37,7 +38,8 @@ jobs:
         node-version: [10.16.x, 10.x, 12.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -63,8 +65,9 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 13x
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 13.x
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
@@ -76,10 +79,8 @@ jobs:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
           key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
-      - run: npm ci
-        env:
-          CI: true
-      - run: npm run build
+      - name: Install
+        run: npm ci
         env:
           CI: true
       - run: npm run test-coverage
@@ -109,10 +110,12 @@ jobs:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
           key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
-      - run: npm ci
+      - name: Install
+        run: npm ci
         env:
           CI: true
-      - run: npm run build
+      - name: Build
+        run: npm run build
         env:
           CI: true
       # TODO: remove after https://github.com/bundlewatch/bundlewatch/pull/66 is merged and released
