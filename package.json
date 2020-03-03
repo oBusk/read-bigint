@@ -50,7 +50,7 @@
         "postlint-fix": "npm run prettier-fix",
         "test": "jest",
         "test-coverage": "jest --coverage",
-        "bundlewatch": "bundlewatch"
+        "bundlewatch": "node -e \"console.log(env)\" && bundlewatch"
     },
     "devDependencies": {
         "@types/jest": "^25.1.3",

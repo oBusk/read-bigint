@@ -123,4 +123,4 @@ jobs:
           CI_REPO_OWNER: "oBusk"
           CI_REPO_NAME: "read-bigint"
           CI_COMMIT_SHA: ${{ github.sha }}
-          # CI_BRANCH: ${{ github.ref }}
+          CI_BRANCH: ${{ github.ref }}
