@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { readBigUInt64BE } from "./read-biguint-64-be";
 
 const ZERO_64BIT = Object.freeze([
