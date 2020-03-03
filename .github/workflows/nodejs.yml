@@ -6,6 +6,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      CI: true
 
     steps:
       - name: Checkout
@@ -14,7 +16,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
-      - name: Cache node modules
+      - name: Cache npm cache
         uses: actions/cache@v1
         env:
           node-version: 13.x
@@ -22,16 +24,16 @@ jobs:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
           key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
-      - run: npm ci
-        env:
-          CI: true
-      - run: npm run lint
-        env:
-          CI: true
+      - name: Install
+        run: npm ci
+      - name: Check Linting
+        run: npm run lint
 
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      CI: true
 
     strategy:
       matrix:
@@ -44,7 +46,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cache node modules
+      - name: Cache npm cache
         uses: actions/cache@v1
         env:
           node-version: ${{ matrix.node-version }}
@@ -52,12 +54,10 @@ jobs:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
           key: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
-      - run: npm ci
-        env:
-          CI: true
-      - run: npm test
-        env:
-          CI: true
+      - name: Install
+        run: npm ci
+      - name: Run Tests
+        run: npm run test-coverage
 
   test-with-codecov:
     name: test (13.x) [With codecov]
@@ -71,7 +71,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
-      - name: Cache node modules
+      - name: Cache npm cache
         uses: actions/cache@v1
         env:
           node-version: 13.x
@@ -81,11 +81,8 @@ jobs:
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
       - name: Install
         run: npm ci
-        env:
-          CI: true
-      - run: npm run test-coverage
-        env:
-          CI: true
+      - name: Run Tests
+        run: npm run test-coverage
       - name: Codecov
         uses: codecov/codecov-action@v1
         with:
@@ -95,6 +92,8 @@ jobs:
     name: build (13x) [With bundlewatch]
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      CI: true
 
     steps:
       - uses: actions/checkout@v2
@@ -102,7 +101,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
-      - name: Cache node modules
+      - name: Cache npm cache
         uses: actions/cache@v1
         env:
           node-version: 13.x
@@ -112,12 +111,8 @@ jobs:
           restore-keys: ${{ runner.os }}-node-${{ env.node-version }}-npm-cache-
       - name: Install
         run: npm ci
-        env:
-          CI: true
       - name: Build
         run: npm run build
-        env:
-          CI: true
       # TODO: remove after https://github.com/bundlewatch/bundlewatch/pull/66 is merged and released
       # https://stackoverflow.com/a/58035262
       - name: Extract the branch name
