@@ -3,156 +3,156 @@ name: Node.js CI
 on: [push, pull_request]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    env:
-      CI: true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js 13x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 13.x
-      - name: Get cache dir, Node Version and NPM Version
-        id: node-config
-        run: |
-          echo "::set-output name=nodev::$(node -v)"
-          echo "::set-output name=npmv::$(npm -v)"
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache npm cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.node-config.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-            ${{ runner.os }}-
-      - name: Install
-        run: npm ci
-      - name: Check Linting
-        run: npm run lint
-
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    env:
-      CI: true
-
-    strategy:
-      matrix:
-        node-version: [10.16.x, 10.x, 12.x]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Get cache dir, Node Version and NPM Version
-        id: node-config
-        run: |
-          echo "::set-output name=nodev::$(node -v)"
-          echo "::set-output name=npmv::$(npm -v)"
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache npm cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.node-config.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-            ${{ runner.os }}-
-      - name: Install
-        run: npm ci
-      - name: Run Tests
-        run: npm run test-coverage
-
-  test-with-codecov:
-    name: test (13.x) [With codecov]
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js 13.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 13.x
-      - name: Get cache dir, Node Version and NPM Version
-        id: node-config
-        run: |
-          echo "::set-output name=nodev::$(node -v)"
-          echo "::set-output name=npmv::$(npm -v)"
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache npm cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.node-config.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-            ${{ runner.os }}-
-      - name: Install
-        run: npm ci
-      - name: Run Tests
-        run: npm run test-coverage
-      - name: Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-  build-with-bundlewatch:
-    name: build (13.x) [With bundlewatch]
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    env:
-      CI: true
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 13x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 13.x
-      - name: Get cache dir, Node Version and NPM Version
-        id: node-config
-        run: |
-          echo "::set-output name=nodev::$(node -v)"
-          echo "::set-output name=npmv::$(npm -v)"
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache npm cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.node-config.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-            ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-            ${{ runner.os }}-
-      - name: Install
-        run: npm ci
-      - name: Build
-        run: npm run build
-      # TODO: remove after https://github.com/bundlewatch/bundlewatch/pull/66 is merged and released
-      # https://stackoverflow.com/a/58035262
-      - name: Extract the branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - name: Check and Report Bundlesize
-        run: npm run bundlewatch
+    lint:
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
         env:
-          BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
-          # TODO: remove after https://github.com/bundlewatch/bundlewatch/pull/66 is merged and released
-          CI_REPO_OWNER: "oBusk"
-          CI_REPO_NAME: "read-bigint"
-          CI_COMMIT_SHA: ${{ github.sha }}
-          CI_BRANCH: ${{ steps.extract_branch.outputs.branch }}
+            CI: true
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Node.js 13x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 13.x
+            - name: Get cache dir, Node Version and NPM Version
+              id: node-config
+              run: |
+                  echo "::set-output name=nodev::$(node -v)"
+                  echo "::set-output name=npmv::$(npm -v)"
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - name: Cache npm cache
+              uses: actions/cache@v1
+              with:
+                  path: ${{ steps.node-config.outputs.dir }}
+                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+                      ${{ runner.os }}-
+            - name: Install
+              run: npm ci
+            - name: Check Linting
+              run: npm run lint
+
+    test:
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        strategy:
+            matrix:
+                node-version: [10.16.x, 10.x, 12.x]
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Get cache dir, Node Version and NPM Version
+              id: node-config
+              run: |
+                  echo "::set-output name=nodev::$(node -v)"
+                  echo "::set-output name=npmv::$(npm -v)"
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - name: Cache npm cache
+              uses: actions/cache@v1
+              with:
+                  path: ${{ steps.node-config.outputs.dir }}
+                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+                      ${{ runner.os }}-
+            - name: Install
+              run: npm ci
+            - name: Run Tests
+              run: npm run test-coverage
+
+    test-with-codecov:
+        name: test (13.x) [With codecov]
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Node.js 13.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 13.x
+            - name: Get cache dir, Node Version and NPM Version
+              id: node-config
+              run: |
+                  echo "::set-output name=nodev::$(node -v)"
+                  echo "::set-output name=npmv::$(npm -v)"
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - name: Cache npm cache
+              uses: actions/cache@v1
+              with:
+                  path: ${{ steps.node-config.outputs.dir }}
+                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+                      ${{ runner.os }}-
+            - name: Install
+              run: npm ci
+            - name: Run Tests
+              run: npm run test-coverage
+            - name: Codecov
+              uses: codecov/codecov-action@v1
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+
+    build-with-bundlewatch:
+        name: build (13.x) [With bundlewatch]
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 13x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 13.x
+            - name: Get cache dir, Node Version and NPM Version
+              id: node-config
+              run: |
+                  echo "::set-output name=nodev::$(node -v)"
+                  echo "::set-output name=npmv::$(npm -v)"
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - name: Cache npm cache
+              uses: actions/cache@v1
+              with:
+                  path: ${{ steps.node-config.outputs.dir }}
+                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
+                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
+                      ${{ runner.os }}-
+            - name: Install
+              run: npm ci
+            - name: Build
+              run: npm run build
+            # TODO: remove after https://github.com/bundlewatch/bundlewatch/pull/66 is merged and released
+            # https://stackoverflow.com/a/58035262
+            - name: Extract the branch name
+              shell: bash
+              run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+              id: extract_branch
+            - name: Check and Report Bundlesize
+              run: npm run bundlewatch
+              env:
+                  BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+                  # TODO: remove after https://github.com/bundlewatch/bundlewatch/pull/66 is merged and released
+                  CI_REPO_OWNER: "oBusk"
+                  CI_REPO_NAME: "read-bigint"
+                  CI_COMMIT_SHA: ${{ github.sha }}
+                  CI_BRANCH: ${{ steps.extract_branch.outputs.branch }}
