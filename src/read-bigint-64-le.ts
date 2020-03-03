@@ -15,7 +15,7 @@ export function readBigInt64LE(buffer: Buffer, offset = 0): bigint {
             first +
                 buffer[++offset] * 2 ** 8 +
                 buffer[++offset] * 2 ** 16 +
-                buffer[++offset] * 2 ** 24
+                buffer[++offset] * 2 ** 24,
         )
     );
 }

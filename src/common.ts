@@ -1,7 +1,7 @@
 function errInvalidArgTypeMsg(
     name: string,
     expected: string,
-    actual: string
+    actual: string,
 ): string {
     return `The "${name}" argument must be of type ${expected}. Recieved type ${actual}`;
 }
@@ -22,17 +22,17 @@ function boundsErrorMsg(value: number, length: number): string {
 
 export function getFirstAndLast(
     buffer: Buffer,
-    offset: number
+    offset: number,
 ): { first: number; last: number } {
     if (!Buffer.isBuffer(buffer)) {
         throw new Error(
-            errInvalidArgTypeMsg("buffer", "Buffer", typeof buffer)
+            errInvalidArgTypeMsg("buffer", "Buffer", typeof buffer),
         );
     }
 
     if (typeof (offset as unknown) !== "number") {
         throw new Error(
-            errInvalidArgTypeMsg("offset", "number", typeof offset)
+            errInvalidArgTypeMsg("offset", "number", typeof offset),
         );
     }
 

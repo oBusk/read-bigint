@@ -15,7 +15,7 @@ export function readBigInt64BE(buffer: Buffer, offset = 0): bigint {
             buffer[++offset] * 2 ** 24 +
                 buffer[++offset] * 2 ** 16 +
                 buffer[++offset] * 2 ** 8 +
-                last
+                last,
         )
     );
 }

@@ -28,7 +28,7 @@ import {
     readBigInt64BE,
     readBigInt64LE,
     readBigUInt64BE,
-    readBigUInt64LE
+    readBigUInt64LE,
 } from "read-bigint";
 
 const buffer = Buffer.from([
@@ -40,7 +40,7 @@ const buffer = Buffer.from([
     0x55,
     0x66,
     0x77,
-    0x88
+    0x88,
 ]);
 
 readBigInt64BE(buffer, /* offset */ 1); // => 1234605616436508552n

@@ -9,7 +9,7 @@ const ZERO_64BIT_SIGNED_INTEGER = Object.freeze([
     0x00,
     0x00,
     0x00,
-    0x00
+    0x00,
 ]);
 const MAX_64BIT_SIGNED_INTEGER_BE = Object.freeze([
     0x7f,
@@ -19,7 +19,7 @@ const MAX_64BIT_SIGNED_INTEGER_BE = Object.freeze([
     0xff,
     0xff,
     0xff,
-    0xff
+    0xff,
 ]);
 const MAX_64BIT_SIGNED_INTEGER = "9223372036854775807";
 const MIN_64BIT_SIGNED_INTEGER_BE = Object.freeze([
@@ -30,7 +30,7 @@ const MIN_64BIT_SIGNED_INTEGER_BE = Object.freeze([
     0x00,
     0x00,
     0x00,
-    0x01
+    0x01,
 ]);
 const MIN_64BIT_SIGNED_INTEGER = `-${MAX_64BIT_SIGNED_INTEGER}`;
 
@@ -48,7 +48,7 @@ describe("readBigInt64BE", () => {
             buffer = Buffer.from(MAX_64BIT_SIGNED_INTEGER_BE);
 
             expect(readBigInt64BE(buffer).toString()).toBe(
-                MAX_64BIT_SIGNED_INTEGER
+                MAX_64BIT_SIGNED_INTEGER,
             );
         });
 
@@ -56,7 +56,7 @@ describe("readBigInt64BE", () => {
             buffer = Buffer.from(MIN_64BIT_SIGNED_INTEGER_BE);
 
             expect(readBigInt64BE(buffer).toString()).toBe(
-                MIN_64BIT_SIGNED_INTEGER
+                MIN_64BIT_SIGNED_INTEGER,
             );
         });
     });
@@ -65,7 +65,7 @@ describe("readBigInt64BE", () => {
         beforeEach(() => {
             buffer = Buffer.from([
                 ...MAX_64BIT_SIGNED_INTEGER_BE,
-                ...ZERO_64BIT_SIGNED_INTEGER
+                ...ZERO_64BIT_SIGNED_INTEGER,
             ]);
         });
 
@@ -73,22 +73,22 @@ describe("readBigInt64BE", () => {
             it("throws if buffer is too small", () => {
                 buffer = Buffer.from(ZERO_64BIT_SIGNED_INTEGER.slice(-1));
                 expect(() => readBigInt64BE(buffer)).toThrow(
-                    /memory outside buffer bounds/
+                    /memory outside buffer bounds/,
                 );
             });
 
             it("throws if buffer argument is not buffer", () => {
                 expect(() =>
-                    readBigInt64BE(ZERO_64BIT_SIGNED_INTEGER as any)
+                    readBigInt64BE(ZERO_64BIT_SIGNED_INTEGER as any),
                 ).toThrow(/argument must be of type/);
                 expect(() => readBigInt64BE("buffer" as any)).toThrow(
-                    /argument must be of type/
+                    /argument must be of type/,
                 );
                 expect(() => readBigInt64BE(0 as any)).toThrow(
-                    /argument must be of type/
+                    /argument must be of type/,
                 );
                 expect(() => readBigInt64BE({ [0]: "hello" } as any)).toThrow(
-                    /argument must be of type/
+                    /argument must be of type/,
                 );
             });
         });
@@ -97,7 +97,7 @@ describe("readBigInt64BE", () => {
             describe("handles legal offsets:", () => {
                 it("0", () => {
                     expect(readBigInt64BE(buffer, 0).toString()).toBe(
-                        MAX_64BIT_SIGNED_INTEGER
+                        MAX_64BIT_SIGNED_INTEGER,
                     );
                 });
                 it("1", () => {
@@ -108,7 +108,7 @@ describe("readBigInt64BE", () => {
                 });
                 it("7", () => {
                     expect(readBigInt64BE(buffer, 7).toString()).toBe(
-                        "-72057594037927936"
+                        "-72057594037927936",
                     );
                 });
                 it("8", () => {
@@ -118,10 +118,10 @@ describe("readBigInt64BE", () => {
 
             it("throws if trying to read outside buffer", () => {
                 expect(() => readBigInt64BE(buffer, -1)).toThrow(
-                    /out of range/
+                    /out of range/,
                 );
                 expect(() => readBigInt64BE(buffer, -999)).toThrow(
-                    /out of range/
+                    /out of range/,
                 );
                 expect(() => readBigInt64BE(buffer, 9)).toThrow(/out of range/);
             });
@@ -129,19 +129,19 @@ describe("readBigInt64BE", () => {
             it("throws 'out of range' if offset is not an integer", () => {
                 // matches native buffer readBigInt
                 expect(() => readBigInt64BE(buffer, 0.1)).toThrow(
-                    /out of range/
+                    /out of range/,
                 );
                 expect(() =>
-                    readBigInt64BE(buffer, 9.000000000000000001)
+                    readBigInt64BE(buffer, 9.000000000000000001),
                 ).toThrow(/out of range/);
             });
 
             it("throws 'argument type' error if offset is not a number", () => {
                 expect(() =>
-                    readBigInt64BE(buffer, BigInt("1") as any)
+                    readBigInt64BE(buffer, BigInt("1") as any),
                 ).toThrow(/argument must be of type/);
                 expect(() => readBigInt64BE(buffer, "1" as any)).toThrow(
-                    /argument must be of type/
+                    /argument must be of type/,
                 );
             });
         });
