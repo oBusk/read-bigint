@@ -1,4 +1,4 @@
-# Read Big Int
+# Read BigInt
 
 [![NPM Version](https://img.shields.io/npm/v/read-bigint)](https://www.npmjs.com/package/read-bigint)
 [![Node.js CI](https://github.com/oBusk/read-bigint/workflows/Node.js%20CI/badge.svg)](https://github.com/oBusk/read-bigint/actions)
