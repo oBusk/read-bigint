@@ -110,7 +110,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   build-with-bundlewatch:
-    name: build (13x) [With bundlewatch]
+    name: build (13.x) [With bundlewatch]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
