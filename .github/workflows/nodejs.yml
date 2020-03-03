@@ -53,9 +53,6 @@ jobs:
       - run: npm ci
         env:
           CI: true
-      - run: npm run build
-        env:
-          CI: true
       - run: npm test
         env:
           CI: true
@@ -93,7 +90,8 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-  bundlesize:
+  build:
+    name: build (13x) [With bundlewatch]
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -123,7 +121,8 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - run: npm run bundlewatch
+      - name: Check and Report Bundlesize
+        run: npm run bundlewatch
         env:
           BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
           # TODO: remove after https://github.com/bundlewatch/bundlewatch/pull/66 is merged and released
