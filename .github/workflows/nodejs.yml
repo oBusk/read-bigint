@@ -30,7 +30,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-
+                      ${{ runner.os }}-node-
             - name: Install
               run: npm ci
             - name: Check Linting
@@ -67,7 +67,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-
+                      ${{ runner.os }}-node-
             - name: Install
               run: npm ci
             - name: Run Tests
@@ -99,7 +99,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-
+                      ${{ runner.os }}-node-
             - name: Install
               run: npm ci
             - name: Run Tests
@@ -117,7 +117,8 @@ jobs:
             CI: true
 
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout
+              uses: actions/checkout@v2
             - name: Use Node.js 13x
               uses: actions/setup-node@v1
               with:
@@ -136,7 +137,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
                       ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-
+                      ${{ runner.os }}-node-
             - name: Install
               run: npm ci
             - name: Build
