@@ -1,6 +1,2 @@
-# Auto detect text files and perform LF normalization
-* text=auto
-
-# JS and TS files must always use LF for tools to work
-*.js eol=lf
-*.ts eol=lf
+# Auto detect text files and perform LF normalization, Checkout as LF since editorconfig/prettier expects that.
+* text=auto eol=LF
