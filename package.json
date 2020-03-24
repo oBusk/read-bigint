@@ -55,8 +55,8 @@
     "devDependencies": {
         "@types/jest": "^25.1.4",
         "@types/node": "^10.17.17",
-        "@typescript-eslint/eslint-plugin": "^2.24.0",
-        "@typescript-eslint/parser": "^2.24.0",
+        "@typescript-eslint/eslint-plugin": "^2.25.0",
+        "@typescript-eslint/parser": "^2.25.0",
         "bundlewatch": "^0.2.6",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.10.1",
@@ -65,7 +65,7 @@
         "husky": "^4.2.3",
         "jest": "^25.1.0",
         "lint-staged": "^10.0.8",
-        "prettier": "^1.19.1",
+        "prettier": "^2.0.2",
         "rimraf": "^3.0.2",
         "ts-jest": "^25.2.1",
         "typescript": "^3.8.3"
