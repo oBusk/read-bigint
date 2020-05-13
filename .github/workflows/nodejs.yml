@@ -15,7 +15,7 @@ jobs:
             - name: Use Node.js 13x
               uses: actions/setup-node@v1
               with:
-                  node-version: 13.x
+                  node-version: 14.x
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -44,7 +44,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [10.16.x, 10.x, 12.x]
+                node-version: [10.18.x, 10.x, 12.x]
 
         steps:
             - name: Checkout
@@ -74,17 +74,17 @@ jobs:
               run: npm run test-coverage
 
     test-with-codecov:
-        name: test (13.x) [With codecov]
+        name: test (14.x) [With codecov]
         runs-on: ubuntu-latest
         timeout-minutes: 5
 
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Use Node.js 13.x
+            - name: Use Node.js 14.x
               uses: actions/setup-node@v1
               with:
-                  node-version: 13.x
+                  node-version: 14.x
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -110,7 +110,7 @@ jobs:
                   token: ${{ secrets.CODECOV_TOKEN }}
 
     build-with-bundlewatch:
-        name: build (13.x) [With bundlewatch]
+        name: build (14.x) [With bundlewatch]
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -119,10 +119,10 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Use Node.js 13x
+            - name: Use Node.js 14.x
               uses: actions/setup-node@v1
               with:
-                  node-version: 13.x
+                  node-version: 14.x
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |

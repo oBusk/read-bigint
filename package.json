@@ -21,10 +21,10 @@
         "url": "https://github.com/oBusk/read-bigint/issues"
     },
     "engines": {
-        "node": "~10.16.2 || ^10.19.0 || ^12.16.0 || >=13.9.0"
+        "node": "~10.18.1 || ^10.20.0 || ^12.16.0 || >=14.2.0"
     },
     "volta": {
-        "node": "14.1.0"
+        "node": "14.2.0"
     },
     "type": "commonjs",
     "main": "dist/index.js",
