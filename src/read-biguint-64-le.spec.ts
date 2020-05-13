@@ -58,18 +58,30 @@ describe("readBigUInt64LE", () => {
             });
 
             it("throws if buffer argument is not buffer", () => {
-                expect(() => readBigUInt64LE(ZERO_64BIT as any)).toThrow(
-                    /argument must be of type/,
-                );
-                expect(() => readBigUInt64LE("buffer" as any)).toThrow(
-                    /argument must be of type/,
-                );
-                expect(() => readBigUInt64LE(0 as any)).toThrow(
-                    /argument must be of type/,
-                );
-                expect(() => readBigUInt64LE({ [0]: "hello" } as any)).toThrow(
-                    /argument must be of type/,
-                );
+                expect(() =>
+                    readBigUInt64LE(
+                        // @ts-expect-error
+                        ZERO_64BIT,
+                    ),
+                ).toThrow(/argument must be of type/);
+                expect(() =>
+                    readBigUInt64LE(
+                        // @ts-expect-error
+                        "buffer",
+                    ),
+                ).toThrow(/argument must be of type/);
+                expect(() =>
+                    readBigUInt64LE(
+                        // @ts-expect-error
+                        0,
+                    ),
+                ).toThrow(/argument must be of type/);
+                expect(() =>
+                    readBigUInt64LE({
+                        // @ts-expect-error
+                        [0]: "hello",
+                    }),
+                ).toThrow(/argument must be of type/);
             });
         });
 
@@ -122,11 +134,19 @@ describe("readBigUInt64LE", () => {
 
             it("throws 'argument type' error if offset is not a number", () => {
                 expect(() =>
-                    readBigUInt64LE(buffer, BigInt("1") as any),
+                    readBigUInt64LE(
+                        buffer,
+                        // @ts-expect-error
+                        BigInt("1"),
+                    ),
                 ).toThrow(/argument must be of type/);
-                expect(() => readBigUInt64LE(buffer, "1" as any)).toThrow(
-                    /argument must be of type/,
-                );
+                expect(() =>
+                    readBigUInt64LE(
+                        buffer,
+                        // @ts-expect-error
+                        "1",
+                    ),
+                ).toThrow(/argument must be of type/);
             });
         });
     });

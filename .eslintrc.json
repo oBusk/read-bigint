@@ -19,12 +19,6 @@
             "extends": [
                 "plugin:@typescript-eslint/recommended-requiring-type-checking"
             ]
-        },
-        {
-            "files": ["src/**/*.spec.ts"],
-            "rules": {
-                "@typescript-eslint/no-explicit-any": "off"
-            }
         }
     ]
 }
