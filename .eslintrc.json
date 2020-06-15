@@ -18,6 +18,20 @@
             "extends": [
                 "plugin:@typescript-eslint/recommended-requiring-type-checking"
             ]
+        },
+        {
+            "files": ["*.spec.{ts,js}"],
+            "rules": {
+                "@typescript-eslint/ban-ts-comment": [
+                    "error",
+                    {
+                        "ts-expect-error": false,
+                        "ts-ignore": true,
+                        "ts-nocheck": true,
+                        "ts-check": false
+                    }
+                ]
+            }
         }
     ]
 }
