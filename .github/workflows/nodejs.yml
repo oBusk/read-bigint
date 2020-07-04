@@ -23,7 +23,7 @@ jobs:
                   echo "::set-output name=npmv::$(npm -v)"
                   echo "::set-output name=dir::$(npm config get cache)"
             - name: Cache npm cache
-              uses: actions/cache@v1
+              uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
                   key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
@@ -60,7 +60,7 @@ jobs:
                   echo "::set-output name=npmv::$(npm -v)"
                   echo "::set-output name=dir::$(npm config get cache)"
             - name: Cache npm cache
-              uses: actions/cache@v1
+              uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
                   key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
@@ -92,7 +92,7 @@ jobs:
                   echo "::set-output name=npmv::$(npm -v)"
                   echo "::set-output name=dir::$(npm config get cache)"
             - name: Cache npm cache
-              uses: actions/cache@v1
+              uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
                   key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
@@ -130,7 +130,7 @@ jobs:
                   echo "::set-output name=npmv::$(npm -v)"
                   echo "::set-output name=dir::$(npm config get cache)"
             - name: Cache npm cache
-              uses: actions/cache@v1
+              uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
                   key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
