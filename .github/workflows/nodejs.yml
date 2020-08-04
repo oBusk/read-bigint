@@ -12,8 +12,8 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Use Node.js 13x
-              uses: actions/setup-node@v1
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v2.1.1
               with:
                   node-version: 14.x
             - name: Get cache dir, Node Version and NPM Version
@@ -26,17 +26,17 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
-                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-node-
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
+                      npm-${{ runner.os }}
             - name: Install
               run: npm ci
             - name: Check Linting
               run: npm run lint
 
-    test:
+    build:
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -44,13 +44,13 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [10.18.x, 10.x, 12.x]
+                node-version: [10.x, 12.x]
 
         steps:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v2.1.1
               with:
                   node-version: ${{ matrix.node-version }}
             - name: Get cache dir, Node Version and NPM Version
@@ -63,11 +63,11 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
-                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-node-
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
+                      npm-${{ runner.os }}
             - name: Install
               run: npm ci
             - name: Run Tests
@@ -82,7 +82,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Use Node.js 14.x
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v2.1.1
               with:
                   node-version: 14.x
             - name: Get cache dir, Node Version and NPM Version
@@ -95,11 +95,11 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
-                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-node-
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
+                      npm-${{ runner.os }}
             - name: Install
               run: npm ci
             - name: Run Tests
@@ -120,7 +120,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Use Node.js 14.x
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v2.1.1
               with:
                   node-version: 14.x
             - name: Get cache dir, Node Version and NPM Version
@@ -133,11 +133,11 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.node-config.outputs.dir }}
-                  key: ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-${{ steps.node-config.outputs.npmv }}-
-                      ${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-
-                      ${{ runner.os }}-node-
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
+                      npm-${{ runner.os }}
             - name: Install
               run: npm ci
             - name: Build

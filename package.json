@@ -21,7 +21,7 @@
         "url": "https://github.com/oBusk/read-bigint/issues"
     },
     "engines": {
-        "node": "~10.18.1 || ^10.20.0 || ^12.16.0 || >=14.2.0"
+        "node": "^10.22.0 || ^12.18.0 || >=14.7.0"
     },
     "volta": {
         "node": "14.7.0",
