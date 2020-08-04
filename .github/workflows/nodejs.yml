@@ -37,80 +37,6 @@ jobs:
             - name: Check Linting
               run: npm run lint
 
-    build-and-test:
-        name: build and test
-        runs-on: ubuntu-latest
-        timeout-minutes: 5
-        env:
-            CI: true
-
-        strategy:
-            matrix:
-                node-version: [10.20.1, 10.x, 12.16.3, 12.x]
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2.1.1
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - name: Get cache dir, Node Version and NPM Version
-              id: node-config
-              run: |
-                  echo "::set-output name=nodev::$(node -v)"
-                  echo "::set-output name=npmv::$(npm -v)"
-                  echo "::set-output name=dir::$(npm config get cache)"
-            - name: Cache npm cache
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.node-config.outputs.dir }}
-                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
-                      npm-${{ runner.os }}
-            - name: Install
-              run: npm ci
-            - name: Run Tests
-              run: npm run test-coverage
-
-    test-with-codecov:
-        name: test (14.x) [With codecov]
-        runs-on: ubuntu-latest
-        timeout-minutes: 5
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Use Node.js 14.x
-              uses: actions/setup-node@v2.1.1
-              with:
-                  node-version: 14.x
-            - name: Get cache dir, Node Version and NPM Version
-              id: node-config
-              run: |
-                  echo "::set-output name=nodev::$(node -v)"
-                  echo "::set-output name=npmv::$(npm -v)"
-                  echo "::set-output name=dir::$(npm config get cache)"
-            - name: Cache npm cache
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.node-config.outputs.dir }}
-                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
-                      npm-${{ runner.os }}
-            - name: Install
-              run: npm ci
-            - name: Run Tests
-              run: npm run test-coverage
-            - name: Codecov
-              uses: codecov/codecov-action@v1
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-
     build-with-bundlewatch:
         name: build (14.x) [With bundlewatch]
         runs-on: ubuntu-latest
@@ -148,3 +74,77 @@ jobs:
               run: npm run bundlewatch
               env:
                   BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+
+    test-with-codecov:
+        name: test (14.x) [With codecov]
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v2.1.1
+              with:
+                  node-version: 14.x
+            - name: Get cache dir, Node Version and NPM Version
+              id: node-config
+              run: |
+                  echo "::set-output name=nodev::$(node -v)"
+                  echo "::set-output name=npmv::$(npm -v)"
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - name: Cache npm cache
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.node-config.outputs.dir }}
+                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
+                      npm-${{ runner.os }}
+            - name: Install
+              run: npm ci
+            - name: Run Tests
+              run: npm run test-coverage
+            - name: Codecov
+              uses: codecov/codecov-action@v1
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+
+    build-and-test:
+        name: build and test
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        strategy:
+            matrix:
+                node-version: [10.20.1, 10.x, 12.16.3, 12.x]
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2.1.1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Get cache dir, Node Version and NPM Version
+              id: node-config
+              run: |
+                  echo "::set-output name=nodev::$(node -v)"
+                  echo "::set-output name=npmv::$(npm -v)"
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - name: Cache npm cache
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.node-config.outputs.dir }}
+                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
+                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
+                      npm-${{ runner.os }}
+            - name: Install
+              run: npm ci
+            - name: Run Tests
+              run: npm run test-coverage
