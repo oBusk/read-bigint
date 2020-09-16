@@ -147,4 +147,4 @@ jobs:
             - name: Install
               run: npm ci
             - name: Run Tests
-              run: npm run test-coverage
+              run: npm run test
