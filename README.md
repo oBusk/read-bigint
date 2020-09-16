@@ -1,7 +1,9 @@
 # Read BigInt
 
 [![NPM Version](https://img.shields.io/npm/v/read-bigint)](https://www.npmjs.com/package/read-bigint)
-[![Node.js CI](https://github.com/oBusk/read-bigint/workflows/Node.js%20CI/badge.svg)](https://github.com/oBusk/read-bigint/actions)
+[![Node.js CI](https://github.com/oBusk/read-bigint/workflows/Node.js%20CI/badge.svg)](https://github.com/oBusk/read-bigint/actions?query=workflow%3A%22Node.js+CI%22)
+[![CodeQL](https://github.com/oBusk/read-bigint/workflows/CodeQL/badge.svg)](https://github.com/oBusk/read-bigint/actions?query=workflow%3ACodeQL)
+[![Dependabot: enabled](https://badgen.net/badge/dependabot/enabled/green?icon=dependabot)](https://github.com/oBusk/read-bigint/network/updates)
 [![codecov](https://codecov.io/gh/oBusk/read-bigint/branch/master/graph/badge.svg)](https://codecov.io/gh/oBusk/read-bigint)
 [![Bundlesize](https://img.shields.io/bundlephobia/minzip/read-bigint)](https://bundlephobia.com/result?p=read-bigint)
 [![Bundle Watched](https://img.shields.io/badge/bundle-watched-blue.svg)](https://bundlewatch.io)
