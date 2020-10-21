@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
     lint:
-        name: lint (14.x)
+        name: lint (15.x)
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -13,10 +13,10 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Use Node.js 14.x
+            - name: Use Node.js 15.x
               uses: actions/setup-node@v2.1.2
               with:
-                  node-version: 14.x
+                  node-version: 15.x
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -38,7 +38,7 @@ jobs:
               run: npm run lint
 
     build-with-bundlewatch:
-        name: build (14.x) [With bundlewatch]
+        name: build (15.x) [With bundlewatch]
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -47,10 +47,10 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Use Node.js 14.x
+            - name: Use Node.js 15.x
               uses: actions/setup-node@v2.1.2
               with:
-                  node-version: 14.x
+                  node-version: 15.x
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -76,17 +76,17 @@ jobs:
                   BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
     test-with-codecov:
-        name: test (14.x) [With codecov]
+        name: test (15.x) [With codecov]
         runs-on: ubuntu-latest
         timeout-minutes: 5
 
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Use Node.js 14.x
+            - name: Use Node.js 15.x
               uses: actions/setup-node@v2.1.2
               with:
-                  node-version: 14.x
+                  node-version: 15.x
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -120,7 +120,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [10.20.1, 10.x, 12.16.3, 12.x]
+                node-version: [10.20.1, 10.x, 12.16.3, 12.x, 14.x]
 
         steps:
             - name: Checkout
