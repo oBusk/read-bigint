@@ -13,7 +13,8 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - uses: volta-cli/action@v1
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -44,7 +45,8 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - uses: volta-cli/action@v1
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -77,8 +79,8 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Use Node.js 15.x
-            - uses: volta-cli/action@v1
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
