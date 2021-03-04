@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
     lint:
-        name: lint (15.x)
+        name: lint (default versions)
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -36,7 +36,7 @@ jobs:
               run: npm run lint
 
     build-with-bundlewatch:
-        name: build (15.x) [With bundlewatch]
+        name: build (default versions) [With bundlewatch]
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -72,7 +72,7 @@ jobs:
                   BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
     test-with-codecov:
-        name: test (15.x) [With codecov]
+        name: test (default versions) [With codecov]
         runs-on: ubuntu-latest
         timeout-minutes: 5
 
