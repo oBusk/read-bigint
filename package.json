@@ -45,15 +45,10 @@
         "build": "rimraf dist/ dist.module/ && tsc && tsc -P tsconfig.module.json",
         "lint": "eslint **/*.{ts,js,json} --ignore-path .gitignore",
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
-        "prettier": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
-        "prettier-fix": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --write",
-        "postlint": "npm run prettier",
-        "postlint-fix": "npm run prettier-fix",
+        "postlint": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
+        "postlint-fix": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --write",
         "test": "jest",
-        "test-coverage": "jest --coverage",
-        "bundlewatch": "bundlewatch",
-        "pre-diff": "npm run build",
-        "diff": "npm diff dist/**/*.js dist.module/**/*.js"
+        "bundlewatch": "bundlewatch"
     },
     "devDependencies": {
         "@types/jest": "^26.0.22",
