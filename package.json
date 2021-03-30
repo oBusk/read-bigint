@@ -38,7 +38,12 @@
                 "path": "dist?(.module)/!(*.spec).js",
                 "maxSize": "0.6kB"
             }
-        ]
+        ],
+        "ci": {
+            "trackBranches": [
+                "main"
+            ]
+        }
     },
     "scripts": {
         "version": "npm run build",
