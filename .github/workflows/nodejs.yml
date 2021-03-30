@@ -99,7 +99,7 @@ jobs:
             - name: Install
               run: npm ci
             - name: Run Tests
-              run: npm run test-coverage
+              run: npm test -- --coverage
             - name: Codecov
               uses: codecov/codecov-action@v1
               with:
@@ -141,4 +141,4 @@ jobs:
             - name: Install
               run: npm ci
             - name: Run Tests
-              run: npm run test
+              run: npm test
