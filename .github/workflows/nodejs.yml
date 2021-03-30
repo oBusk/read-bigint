@@ -67,7 +67,7 @@ jobs:
             - name: Build
               run: npm run build
             - name: Check and Report Bundlesize
-              run: npm run bundlewatch
+              run: npx bundlewatch
               env:
                   BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
