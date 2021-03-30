@@ -51,7 +51,9 @@
         "postlint-fix": "npm run prettier-fix",
         "test": "jest",
         "test-coverage": "jest --coverage",
-        "bundlewatch": "bundlewatch"
+        "bundlewatch": "bundlewatch",
+        "pre-diff": "npm run build",
+        "diff": "npm diff dist/**/*.js dist.module/**/*.js"
     },
     "devDependencies": {
         "@types/jest": "^26.0.22",
