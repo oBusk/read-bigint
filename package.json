@@ -44,6 +44,7 @@
         "prepare": "husky install",
         "version": "npm run build",
         "build": "rimraf dist/ dist.module/ && tsc && tsc -P tsconfig.module.json",
+        "lint-staged": "lint-staged",
         "lint": "eslint **/*.{ts,js,json} --ignore-path .gitignore",
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
         "prettier": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
