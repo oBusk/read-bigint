@@ -24,8 +24,8 @@
         "node": "^10.20.1 || ^12.16.3 || ^14.14.0 || >=15.0.0"
     },
     "volta": {
-        "node": "15.11.0",
-        "npm": "7.6.0"
+        "node": "15.12.0",
+        "npm": "7.7.6"
     },
     "type": "commonjs",
     "main": "dist/index.js",
@@ -54,21 +54,21 @@
         "bundlewatch": "bundlewatch"
     },
     "devDependencies": {
-        "@types/jest": "^26.0.20",
-        "@types/node": "^10.17.54",
-        "@typescript-eslint/eslint-plugin": "^4.16.1",
-        "@typescript-eslint/parser": "^4.16.1",
+        "@types/jest": "^26.0.22",
+        "@types/node": "^10.17.56",
+        "@typescript-eslint/eslint-plugin": "^4.20.0",
+        "@typescript-eslint/parser": "^4.20.0",
         "bundlewatch": "^0.3.2",
-        "eslint": "^7.21.0",
+        "eslint": "^7.23.0",
         "eslint-config-prettier": "^8.1.0",
-        "eslint-plugin-jest": "^24.1.5",
+        "eslint-plugin-jest": "^24.3.2",
         "eslint-plugin-prettier": "^3.3.1",
         "husky": "^4.3.8",
         "jest": "^26.6.3",
         "lint-staged": "^10.5.4",
         "prettier": "^2.2.1",
         "rimraf": "^3.0.2",
-        "ts-jest": "^26.5.3",
-        "typescript": "^4.2.2"
+        "ts-jest": "^26.5.4",
+        "typescript": "^4.2.3"
     }
 }
