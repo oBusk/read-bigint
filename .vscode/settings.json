@@ -1,10 +1,13 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "prettier.prettierPath": "./node_modules/prettier",
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "eslint.options": {
-        "ignorePath": ".gitignore"
-    },
+    "eslint.nodePath": "./node_modules/eslint",
+    "eslint.format.enable": true,
     "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     }
 }
