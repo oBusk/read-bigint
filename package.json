@@ -47,15 +47,13 @@
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
         "postlint": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
         "postlint-fix": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --write",
-        "test": "jest",
-        "bundlewatch": "bundlewatch"
+        "test": "jest"
     },
     "devDependencies": {
         "@types/jest": "^26.0.22",
         "@types/node": "^10.17.56",
         "@typescript-eslint/eslint-plugin": "^4.20.0",
         "@typescript-eslint/parser": "^4.20.0",
-        "bundlewatch": "^0.3.2",
         "eslint": "^7.23.0",
         "eslint-config-prettier": "^8.1.0",
         "eslint-plugin-jest": "^24.3.2",
