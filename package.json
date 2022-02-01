@@ -55,7 +55,8 @@
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
         "postlint": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
         "postlint-fix": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --write",
-        "test": "jest"
+        "test": "jest --roots src/",
+        "test-dist": "jest --roots dist/"
     },
     "devDependencies": {
         "@types/jest": "^27.4.0",
