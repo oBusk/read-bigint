@@ -12,6 +12,9 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
+
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -29,13 +32,14 @@ jobs:
                       npm-${{ runner.os }}
             - name: Install
               run: npm ci
-            - name: "[repo-archive] Pack"
-              run: tar --exclude repo-archive.tar --exclude .git/ -czf repo-archive.tar .
-            - name: "[repo-archive] Upload"
+
+            - name: "[node-modules-archive] Pack"
+              run: tar --exclude *.log -czf node-modules-archive.tar node_modules/
+            - name: "[node-modules-archive] Upload"
               uses: actions/upload-artifact@v2
               with:
-                  name: repo-archive
-                  path: repo-archive.tar
+                  name: node-modules-archive
+                  path: node-modules-archive.tar
 
     lint:
         needs: install
@@ -45,15 +49,18 @@ jobs:
             CI: true
 
         steps:
-            - name: "[repo-archive] Download"
-              uses: actions/download-artifact@v2
-              with:
-                  name: repo-archive
-            - name: "[repo-archive] Unpack"
-              run: tar -xzf repo-archive.tar
-
+            - name: Checkout
+              uses: actions/checkout@v2
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
+
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
             - name: Check Linting
               run: npm run lint
 
@@ -65,19 +72,28 @@ jobs:
             CI: true
 
         steps:
-            - name: "[repo-archive] Download"
-              uses: actions/download-artifact@v2
-              with:
-                  name: repo-archive
-            - name: "[repo-archive] Unpack"
-              run: tar -xzf repo-archive.tar
-
+            - name: Checkout
+              uses: actions/checkout@v2
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
+
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
             - name: Build
               run: npm run build
-            - name: Archive dist
-              run: tar -czf dist-archive.tar dist/ dist.module/
+
+            - name: "[dist] Upload"
+              uses: actions/upload-artifact@v2
+              with:
+                  name: dist
+                  path: |
+                      dist/
+                      dist.module/
 
     bundlewatch:
         needs: build
@@ -87,22 +103,23 @@ jobs:
             CI: true
 
         steps:
-            - name: "[repo-archive] Download"
-              uses: actions/download-artifact@v2
-              with:
-                  name: repo-archive
-            - name: "[repo-archive] Unpack"
-              run: tar -xzf repo-archive.tar
-
-            - name: "[dist-archive] Download"
-              uses: actions/download-artifact@v2
-              with:
-                  name: dist-archive
-            - name: "[dist-archive] Unpack"
-              run: tar -xzf dist-archive.tar
-
+            - name: Checkout
+              uses: actions/checkout@v2
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
+
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
+            - name: "[dist] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: dist
+
             - name: Check and Report Bundlesize
               run: npx bundlewatch
               env:
