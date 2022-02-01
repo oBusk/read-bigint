@@ -30,7 +30,7 @@ jobs:
             - name: Install
               run: npm ci
             - name: "[repo-archive] Pack"
-              run: tar -czf repo-archive.tar
+              run: tar -czf repo-archive.tar .
             - name: "[repo-archive] Upload"
               uses: actions/upload-artifact@v2
               with:
