@@ -11,9 +11,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
-            - name: Use Volta Node/NPM
-              uses: volta-cli/action@v1
+              uses: actions/checkout@v2ac
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -31,16 +29,15 @@ jobs:
                       npm-${{ runner.os }}
             - name: Install
               run: npm ci
-            - name: Archive repo
-              run: tar -cvf repo-archive.tar .
-            - name: Upload archive as artifact
+            - name: "[repo-archive] Pack"
+              run: tar -czf repo-archive.tar
+            - name: "[repo-archive] Upload"
               uses: actions/upload-artifact@v2
               with:
                   name: repo-archive
                   path: repo-archive.tar
 
     lint:
-        name: lint (default versions)
         needs: install
         runs-on: ubuntu-latest
         timeout-minutes: 5
@@ -48,50 +45,68 @@ jobs:
             CI: true
 
         steps:
-            - name: Download repo-archive
+            - name: "[repo-archive] Download"
               uses: actions/download-artifact@v2
               with:
                   name: repo-archive
-            - name: Unarchive repo-archive
-              run: tar -xvf repo-archive.tar
+            - name: "[repo-archive] Unpack"
+              run: tar -xzf repo-archive.tar
+
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
             - name: Check Linting
               run: npm run lint
 
-    # build-with-bundlewatch:
-    #     name: build (default versions) [With bundlewatch]
-    #     runs-on: ubuntu-latest
-    #     timeout-minutes: 5
-    #     env:
-    #         CI: true
+    build:
+        needs: install
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
 
-    #     steps:
-    #         - name: Checkout
-    #           uses: actions/checkout@v2
-    #         - name: Use Volta Node/NPM
-    #           uses: volta-cli/action@v1
-    #         - name: Get cache dir, Node Version and NPM Version
-    #           id: node-config
-    #           run: |
-    #               echo "::set-output name=nodev::$(node -v)"
-    #               echo "::set-output name=npmv::$(npm -v)"
-    #               echo "::set-output name=dir::$(npm config get cache)"
-    #         - name: Cache npm cache
-    #           uses: actions/cache@v2
-    #           with:
-    #               path: ${{ steps.node-config.outputs.dir }}
-    #               key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-    #               restore-keys: |
-    #                   npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
-    #                   npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
-    #                   npm-${{ runner.os }}
-    #         - name: Install
-    #           run: npm ci
-    #         - name: Build
-    #           run: npm run build
-    #         - name: Check and Report Bundlesize
-    #           run: npx bundlewatch
-    #           env:
-    #               BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+        steps:
+            - name: "[repo-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: repo-archive
+            - name: "[repo-archive] Unpack"
+              run: tar -xzf repo-archive.tar
+
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
+            - name: Build
+              run: npm run build
+            - name: Archive dist
+              run: tar -czf dist-archive.tar dist/ dist.module/
+
+    bundlewatch:
+        needs: build
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        steps:
+            - name: "[repo-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: repo-archive
+            - name: "[repo-archive] Unpack"
+              run: tar -xzf repo-archive.tar
+
+            - name: "[dist-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: dist-archive
+            - name: "[dist-archive] Unpack"
+              run: tar -xzf dist-archive.tar
+
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
+            - name: Check and Report Bundlesize
+              run: npx bundlewatch
+              env:
+                  BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
     # test-with-codecov:
     #     name: test (default versions) [With codecov]
