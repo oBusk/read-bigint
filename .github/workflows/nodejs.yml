@@ -187,3 +187,18 @@ jobs:
 
             - name: Run Tests
               run: npm run test-dist
+
+    cleanup:
+        needs: [lint, test-with-codecov, bundlewatch, test]
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        steps:
+            - name: Cleanup artifacts
+              uses: geekyeggo/delete-artifact@v1
+              with:
+                  name: |
+                      dist
+                      node-modules-archive
