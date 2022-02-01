@@ -38,6 +38,7 @@ jobs:
             - name: "[node-modules-archive] Upload"
               uses: actions/upload-artifact@v2
               with:
+                  retention-days: 1
                   name: node-modules-archive
                   path: node-modules-archive.tar
 
@@ -117,6 +118,7 @@ jobs:
             - name: "[dist] Upload"
               uses: actions/upload-artifact@v2
               with:
+                  retention-days: 1
                   name: dist
                   path: |
                       dist/
