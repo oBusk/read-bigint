@@ -115,9 +115,9 @@ describe("readBigUInt64BE", () => {
                 expect(() => readBigUInt64BE(buffer, 0.1)).toThrow(
                     /out of range/,
                 );
-                expect(() =>
-                    readBigUInt64BE(buffer, 9.000000000000000001),
-                ).toThrow(/out of range/);
+                expect(() => readBigUInt64BE(buffer, 9.00000000000001)).toThrow(
+                    /out of range/,
+                );
             });
 
             it("throws 'argument type' error if offset is not a number", () => {
