@@ -170,6 +170,7 @@ jobs:
               uses: volta-cli/action@v1
               with:
                   node-version: ${{ matrix.node-version }}
+                  npm-version: "bundled"
 
             - name: "[node-modules-archive] Download"
               uses: actions/download-artifact@v2
