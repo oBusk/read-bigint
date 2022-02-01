@@ -185,4 +185,4 @@ jobs:
                   name: dist
 
             - name: Run Tests
-              run: npm test
+              run: npm test-dist
