@@ -31,13 +31,13 @@ jobs:
                       npm-${{ runner.os }}
             - name: Install
               run: npm ci
-            - name: Archive node_modules
-              run: tar -cvf node_modules.tar node_modules
-            - name: Upload node_modules as artifact
+            - name: Archive repo
+              run: tar -cvf repo-archive.tar .
+            - name: Upload archive as artifact
               uses: actions/upload-artifact@v2
               with:
-                  name: node_modules
-                  path: node_modules.tar
+                  name: repo-archive
+                  path: repo-archive.tar
 
     lint:
         name: lint (default versions)
@@ -48,12 +48,12 @@ jobs:
             CI: true
 
         steps:
-            - name: Download node_modules/
+            - name: Download repo-archive
               uses: actions/download-artifact@v2
               with:
-                  name: node_modules
-            - name: Unarchive node_modules
-              run: tar -xvf node_modules.tar
+                  name: repo-archive
+            - name: Unarchive repo-archive
+              run: tar -xvf repo-archive.tar
             - name: Check Linting
               run: npm run lint
 
