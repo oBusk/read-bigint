@@ -3,8 +3,7 @@ name: Node.js CI
 on: [push, pull_request]
 
 jobs:
-    lint:
-        name: lint (default versions)
+    install:
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -15,6 +14,7 @@ jobs:
               uses: actions/checkout@v2
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
+
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
               run: |
@@ -32,11 +32,40 @@ jobs:
                       npm-${{ runner.os }}
             - name: Install
               run: npm ci
+
+            - name: "[node-modules-archive] Pack"
+              run: tar --exclude *.log -czf node-modules-archive.tar node_modules/
+            - name: "[node-modules-archive] Upload"
+              uses: actions/upload-artifact@v2
+              with:
+                  name: node-modules-archive
+                  path: node-modules-archive.tar
+
+    lint:
+        needs: install
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
+
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
             - name: Check Linting
               run: npm run lint
 
-    build-with-bundlewatch:
-        name: build (default versions) [With bundlewatch]
+    test-with-codecov:
+        needs: install
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
@@ -47,57 +76,14 @@ jobs:
               uses: actions/checkout@v2
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
-            - name: Get cache dir, Node Version and NPM Version
-              id: node-config
-              run: |
-                  echo "::set-output name=nodev::$(node -v)"
-                  echo "::set-output name=npmv::$(npm -v)"
-                  echo "::set-output name=dir::$(npm config get cache)"
-            - name: Cache npm cache
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.node-config.outputs.dir }}
-                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
-                      npm-${{ runner.os }}
-            - name: Install
-              run: npm ci
-            - name: Build
-              run: npm run build
-            - name: Check and Report Bundlesize
-              run: npx bundlewatch
-              env:
-                  BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
-    test-with-codecov:
-        name: test (default versions) [With codecov]
-        runs-on: ubuntu-latest
-        timeout-minutes: 5
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Use Volta Node/NPM
-              uses: volta-cli/action@v1
-            - name: Get cache dir, Node Version and NPM Version
-              id: node-config
-              run: |
-                  echo "::set-output name=nodev::$(node -v)"
-                  echo "::set-output name=npmv::$(npm -v)"
-                  echo "::set-output name=dir::$(npm config get cache)"
-            - name: Cache npm cache
-              uses: actions/cache@v2
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
               with:
-                  path: ${{ steps.node-config.outputs.dir }}
-                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
-                      npm-${{ runner.os }}
-            - name: Install
-              run: npm ci
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
             - name: Run Tests
               run: npm test -- --coverage
             - name: Codecov
@@ -105,16 +91,78 @@ jobs:
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
 
-    build-and-test:
-        name: build and test
+    build:
+        needs: install
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
+
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
+            - name: Build
+              run: npm run build
+
+            - name: "[dist] Upload"
+              uses: actions/upload-artifact@v2
+              with:
+                  name: dist
+                  path: |
+                      dist/
+                      dist.module/
+
+    bundlewatch:
+        needs: build
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        env:
+            CI: true
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Use Volta Node/NPM
+              uses: volta-cli/action@v1
+
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
+            - name: "[dist] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: dist
+
+            - name: Check and Report Bundlesize
+              run: npx bundlewatch
+              env:
+                  BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+
+    test:
+        needs: build
         runs-on: ubuntu-latest
         timeout-minutes: 5
         env:
             CI: true
 
         strategy:
+            fail-fast: false
             matrix:
-                node-version: [10.20.1, 10.x, 12.16.3, 12.x, 14.14.0, 14.x]
+                node-version: [10.x, 12.x, 14.x, 16.x, 17.x, latest]
 
         steps:
             - name: Checkout
@@ -123,22 +171,19 @@ jobs:
               uses: volta-cli/action@v1
               with:
                   node-version: ${{ matrix.node-version }}
-            - name: Get cache dir, Node Version and NPM Version
-              id: node-config
-              run: |
-                  echo "::set-output name=nodev::$(node -v)"
-                  echo "::set-output name=npmv::$(npm -v)"
-                  echo "::set-output name=dir::$(npm config get cache)"
-            - name: Cache npm cache
-              uses: actions/cache@v2
+                  npm-version: "bundled"
+
+            - name: "[node-modules-archive] Download"
+              uses: actions/download-artifact@v2
               with:
-                  path: ${{ steps.node-config.outputs.dir }}
-                  key: npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}-npm-v${{ steps.node-config.outputs.npmv }}
-                      npm-${{ runner.os }}-node-${{ steps.node-config.outputs.nodev }}
-                      npm-${{ runner.os }}
-            - name: Install
-              run: npm ci
+                  name: node-modules-archive
+            - name: "[node-modules-archive] Unpack"
+              run: tar -xzf node-modules-archive.tar
+
+            - name: "[dist] Download"
+              uses: actions/download-artifact@v2
+              with:
+                  name: dist
+
             - name: Run Tests
-              run: npm test
+              run: npm run test-dist

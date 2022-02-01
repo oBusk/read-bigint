@@ -21,7 +21,7 @@
         "url": "https://github.com/oBusk/read-bigint/issues"
     },
     "engines": {
-        "node": "^10.20.1 || ^12.16.3 || ^14.14.0 || >=15.0.0"
+        "node": "^10.13.0 || ^12.13.0 || ^14.15.0 || ^16.13.0 || >=17.4.0"
     },
     "volta": {
         "node": "17.4.0",
@@ -55,7 +55,8 @@
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
         "postlint": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
         "postlint-fix": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --write",
-        "test": "jest"
+        "test": "jest --roots src/",
+        "test-dist": "jest --roots dist/"
     },
     "devDependencies": {
         "@types/jest": "^27.4.0",
