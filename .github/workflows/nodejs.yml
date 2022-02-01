@@ -161,7 +161,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [10.20.1, 10.x, 12.16.3, 12.x, 14.14.0, 14.x]
+                node-version: [10.x, 12.x, 14.x, 16.x, 17.x, 18.x, latest]
 
         steps:
             - name: Checkout
