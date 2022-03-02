@@ -11,7 +11,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
 
@@ -51,7 +51,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
 
@@ -74,7 +74,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
 
@@ -101,7 +101,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
 
@@ -133,7 +133,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Use Volta Node/NPM
               uses: volta-cli/action@v1
 
@@ -168,7 +168,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
               uses: volta-cli/action@v1
               with:
