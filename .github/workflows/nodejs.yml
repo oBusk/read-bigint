@@ -36,7 +36,7 @@ jobs:
             - name: "[node-modules-archive] Pack"
               run: tar --exclude *.log -czf node-modules-archive.tar node_modules/
             - name: "[node-modules-archive] Upload"
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   retention-days: 1
                   name: node-modules-archive
@@ -116,7 +116,7 @@ jobs:
               run: npm run build
 
             - name: "[dist] Upload"
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   retention-days: 1
                   name: dist
