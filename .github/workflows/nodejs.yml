@@ -56,7 +56,7 @@ jobs:
               uses: volta-cli/action@v1
 
             - name: "[node-modules-archive] Download"
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: node-modules-archive
             - name: "[node-modules-archive] Unpack"
@@ -79,7 +79,7 @@ jobs:
               uses: volta-cli/action@v1
 
             - name: "[node-modules-archive] Download"
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: node-modules-archive
             - name: "[node-modules-archive] Unpack"
@@ -106,7 +106,7 @@ jobs:
               uses: volta-cli/action@v1
 
             - name: "[node-modules-archive] Download"
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: node-modules-archive
             - name: "[node-modules-archive] Unpack"
@@ -138,14 +138,14 @@ jobs:
               uses: volta-cli/action@v1
 
             - name: "[node-modules-archive] Download"
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: node-modules-archive
             - name: "[node-modules-archive] Unpack"
               run: tar -xzf node-modules-archive.tar
 
             - name: "[dist] Download"
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: dist
 
@@ -176,14 +176,14 @@ jobs:
                   npm-version: "bundled"
 
             - name: "[node-modules-archive] Download"
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: node-modules-archive
             - name: "[node-modules-archive] Unpack"
               run: tar -xzf node-modules-archive.tar
 
             - name: "[dist] Download"
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: dist
 
