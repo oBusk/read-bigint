@@ -29,6 +29,16 @@
     },
     "type": "commonjs",
     "main": "dist/index.js",
+    "browser": {
+        "./dist/index.js": "./browser/index.js"
+    },
+    "exports": {
+        ".": {
+            "node": "./dist/index.js",
+            "default": "./browser/index.js"
+        },
+        "./package.json": "./package.json"
+    },
     "typings": "dist/index.d.ts",
     "module": "dist.module/index.js",
     "sideEffects": false,
@@ -36,6 +46,10 @@
         "files": [
             {
                 "path": "dist?(.module)/!(*.spec).js",
+                "maxSize": "0.6kB"
+            },
+            {
+                "path": "browser/dist?(.module)/!(*.spec).js",
                 "maxSize": "0.6kB"
             }
         ],
@@ -50,7 +64,8 @@
     },
     "scripts": {
         "version": "npm run build",
-        "build": "rimraf dist/ dist.module/ && tsc && tsc -P tsconfig.module.json",
+        "build": "rimraf dist/ dist.module/ && tsc && tsc -P tsconfig.module.json && npm run build:browser",
+        "build:browser": "rollup -c config/rollup.browser-config.js",
         "lint": "eslint **/*.{ts,js,json} --ignore-path .gitignore",
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
         "postlint": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
@@ -74,5 +89,11 @@
         "simple-git-hooks": "^2.7.0",
         "ts-jest": "^27.1.4",
         "typescript": "^4.6.3"
+    },
+    "dependencies": {
+        "@rollup/plugin-babel": "^5.3.1",
+        "@rollup/plugin-replace": "^4.0.0",
+        "@rollup/plugin-typescript": "^8.3.2",
+        "rollup": "^2.71.1"
     }
 }
