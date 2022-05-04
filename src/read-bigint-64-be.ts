@@ -1,4 +1,4 @@
-import { getFirstAndLast } from "./common";
+import { getFirstAndLast } from "./common.js";
 
 // https://github.com/nodejs/node/blob/v13.9.0/lib/internal/buffer.js#L141-L157
 export function readBigInt64BE(buffer: Buffer, offset = 0): bigint {

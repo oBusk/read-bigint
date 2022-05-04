@@ -31,6 +31,16 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "module": "dist.module/index.js",
+    "browser": {
+        "./dist/index.js": "./browser/index.js"
+    },
+    "exports": {
+        ".": {
+            "node": "./dist/index.js",
+            "default": "./browser/index.js"
+        },
+        "./package.json": "./package.json"
+    },
     "sideEffects": false,
     "bundlewatch": {
         "files": [
@@ -46,7 +56,7 @@
         }
     },
     "simple-git-hooks": {
-        "pre-commit": "npx lint-staged && npm test"
+        "pre-commit": "npx lint-staged && npm build "
     },
     "scripts": {
         "version": "npm run build",
@@ -55,7 +65,7 @@
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
         "postlint": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
         "postlint-fix": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --write",
-        "test": "jest --roots src/",
+        "test": "jest --roots dist/",
         "test-dist": "jest --roots dist/"
     },
     "devDependencies": {
