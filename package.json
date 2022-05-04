@@ -60,7 +60,7 @@
     },
     "scripts": {
         "version": "npm run build",
-        "build": "rimraf dist/ dist.module/ && tsc && tsc -P tsconfig.module.json",
+        "build": "rimraf dist/ dist.module/ /browser/dist/ && tsc && tsc -P tsconfig.module.json && tsc -P tsconfig.browser.json ",
         "lint": "eslint **/*.{ts,js,json} --ignore-path .gitignore",
         "lint-fix": "eslint **/*.{ts,js,json} --ignore-path .gitignore --fix",
         "postlint": "prettier **/*.{md,yml,yaml} --ignore-path .gitignore --check",
