@@ -13,7 +13,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Use Volta Node/NPM
-              uses: volta-cli/action@v1
+              uses: volta-cli/action@v3
 
             - name: Get cache dir, Node Version and NPM Version
               id: node-config
@@ -53,7 +53,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Use Volta Node/NPM
-              uses: volta-cli/action@v1
+              uses: volta-cli/action@v3
 
             - name: "[node-modules-archive] Download"
               uses: actions/download-artifact@v2
@@ -76,7 +76,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Use Volta Node/NPM
-              uses: volta-cli/action@v1
+              uses: volta-cli/action@v3
 
             - name: "[node-modules-archive] Download"
               uses: actions/download-artifact@v2
@@ -103,7 +103,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Use Volta Node/NPM
-              uses: volta-cli/action@v1
+              uses: volta-cli/action@v3
 
             - name: "[node-modules-archive] Download"
               uses: actions/download-artifact@v2
@@ -135,7 +135,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Use Volta Node/NPM
-              uses: volta-cli/action@v1
+              uses: volta-cli/action@v3
 
             - name: "[node-modules-archive] Download"
               uses: actions/download-artifact@v2
@@ -170,7 +170,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: volta-cli/action@v1
+              uses: volta-cli/action@v3
               with:
                   node-version: ${{ matrix.node-version }}
                   npm-version: "bundled"
